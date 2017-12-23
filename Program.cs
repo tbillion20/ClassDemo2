@@ -10,29 +10,43 @@ namespace ClassDemo2
     {
         static void Main(string[] args)
         {
-            //MyAbstractClass abClass = new MyAbstractClass
             ClassA a = new ClassA();
-            a.PrintMessage();
-            a.PrintMessageAbstract();
+            a.MyNumber = 5;
+            a.InterfaceMethod();
             Console.Read();
         }
     }
 
-    abstract class MyAbstractClass
+    interface IShape
     {
-        private string message = "Hello c#";
-        public void PrintMessage()
+        int MyNumber
         {
-            Console.WriteLine(message);
+            get;
+            set;
         }
-        public abstract void PrintMessageAbstract();
+        void InterfaceMethod();
     }
 
-    class ClassA : MyAbstractClass
+    class ClassA : IShape
     {
-        public override void PrintMessageAbstract()
+        private int myNumber;
+        public int MyNumber
         {
-            Console.WriteLine("C# is fun!");
+            get
+            {
+                return myNumber;
+            }
+            set
+            {
+                if (value < 0)
+                    myNumber = 0;
+                else
+                    myNumber = value;
+            }
+        }
+        public void InterfaceMethod()
+        {
+            Console.WriteLine("The number is {0}.", MyNumber);
         }
     }
 }
